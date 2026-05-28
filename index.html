@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essential Elegance | Makayla</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #faf8f5;
+      --warm-white: #f7f3ee;
+      --blush: #e8d5cc;
+      --rose: #d4a99a;
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --dusty-blue: #8faab3;
+      --dusty-blue-light: #b8cfd6;
+      --sage: #a8b5a2;
+      --dark: #2a2322;
+      --mid: #5a4f4a;
+      --light-mid: #9a8f8a;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Cormorant Garamond', serif;
+      --font-script: 'Dancing Script', cursive;
+      --font-sans: 'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: multiply;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+      opacity: 0.6;
+    }
+    .cursor.hover { width: 6px; height: 6px; }
+    .cursor-ring.hover { width: 60px; height: 60px; opacity: 1; border-color: var(--rose); }
+
+    /* ── LOADER ── */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--cream);
+      z-index: 99990;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+    .loader-logo {
+      font-family: var(--font-script);
+      font-size: 52px;
+      color: var(--dark);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: loaderFade 0.8s 0.3s ease forwards;
+    }
+    .loader-subtitle {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--light-mid);
+      opacity: 0;
+      animation: loaderFade 0.8s 0.7s ease forwards;
+    }
+    .loader-bar-wrap {
+      width: 180px; height: 1px;
+      background: var(--blush);
+      overflow: hidden;
+      opacity: 0;
+      animation: loaderFade 0.5s 0.9s ease forwards;
+    }
+    .loader-bar {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      animation: loadBar 1.4s 1s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes loaderFade { to { opacity: 1; transform: translateY(0); } }
+    @keyframes loadBar { to { width: 100%; } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(250,248,245,0.95);
+      backdrop-filter: blur(12px);
+      padding: 14px 48px;
+      box-shadow: 0 2px 30px rgba(42,35,34,0.06);
+    }
+    .nav-logo {
+      font-family: var(--font-script);
+      font-size: 28px;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      display: flex; gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-book {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--dark);
+      padding: 12px 28px;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .nav-book:hover { background: var(--gold); transform: translateY(-1px); }
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--dark);
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0;
+      background: var(--cream);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--dark);
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: mobileIn 0.4s forwards;
+    }
+    @keyframes mobileIn { to { opacity: 1; transform: translateY(0); } }
+    .mobile-menu a:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu a:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu a:nth-child(3) { animation-delay: 0.3s; }
+    .mobile-menu a:nth-child(4) { animation-delay: 0.4s; }
+    .mobile-menu a:nth-child(5) { animation-delay: 0.5s; }
+    .mobile-close {
+      position: absolute; top: 24px; right: 28px;
+      font-size: 32px; cursor: pointer; color: var(--mid);
+      background: none; border: none;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #faf8f5 0%, #f5ede4 40%, #e8d5cc 80%, #dcc9be 100%);
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      background: var(--dusty-blue);
+      animation: floatCircle 8s ease-in-out infinite;
+    }
+    .hero-bg-circle:nth-child(1) { width: 600px; height: 600px; top: -100px; right: -100px; animation-delay: 0s; }
+    .hero-bg-circle:nth-child(2) { width: 400px; height: 400px; bottom: -80px; left: -80px; animation-delay: 3s; opacity: 0.05; }
+    .hero-bg-circle:nth-child(3) { width: 200px; height: 200px; top: 30%; left: 10%; animation-delay: 1.5s; opacity: 0.06; }
+    @keyframes floatCircle {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.02); }
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .hero-name {
+      font-family: var(--font-script);
+      font-size: clamp(64px, 12vw, 120px);
+      color: var(--dark);
+      line-height: 1;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .hero-tagline {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      color: var(--light-mid);
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .hero-desc {
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-style: italic;
+      color: var(--mid);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .hero-btns {
+      display: flex; gap: 20px;
+      justify-content: center; flex-wrap: wrap;
+      opacity: 0; transform: translateY(16px);
+    }
+    .btn-primary {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--dark);
+      padding: 18px 40px;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover::before { transform: scaleX(1); }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-outline {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--dark);
+      border: 1px solid var(--dark);
+      padding: 18px 40px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { background: var(--dark); color: var(--cream); }
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+      opacity: 0; animation: scrollFade 1s 3s forwards;
+    }
+    .hero-scroll span {
+      font-family: var(--font-sans);
+      font-size: 9px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--light-mid);
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollLine 1.5s ease-in-out infinite;
+    }
+    @keyframes scrollFade { to { opacity: 1; } }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── FLOATING PETALS ── */
+    .petal {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      animation: petalFall linear infinite;
+    }
+    @keyframes petalFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center;
+      gap: 16px; margin: 0 auto;
+      max-width: 300px;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--blush); }
+    .divider-icon { color: var(--gold); font-size: 18px; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .section-header { text-align: center; margin-bottom: 72px; }
+    .section-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--mid);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--warm-white);
+      position: relative;
+      overflow: hidden;
+    }
+    #about::before {
+      content: 'EE';
+      position: absolute;
+      font-family: var(--font-script);
+      font-size: 400px;
+      color: var(--blush);
+      opacity: 0.25;
+      top: -80px; right: -80px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-frame {
+      width: 100%; padding-bottom: 120%;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--blush), var(--dusty-blue-light));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-image-placeholder svg {
+      width: 120px; height: 120px;
+      opacity: 0.3;
+    }
+    .about-image-frame::after {
+      content: '';
+      position: absolute;
+      inset: 20px 20px -20px -20px;
+      border: 1px solid var(--gold);
+      z-index: -1;
+      transition: inset 0.4s ease;
+    }
+    .about-image-wrap:hover .about-image-frame::after {
+      inset: 16px 16px -16px -16px;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 120px; height: 120px;
+      background: var(--dark);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--cream);
+      text-align: center;
+      animation: rotateBadge 20s linear infinite;
+    }
+    .about-badge-inner {
+      display: flex; flex-direction: column;
+      align-items: center;
+    }
+    .about-badge-num {
+      font-family: var(--font-display);
+      font-size: 32px; font-weight: 700;
+      line-height: 1;
+    }
+    .about-badge-text {
+      font-family: var(--font-sans);
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    @keyframes rotateBadge {
+      to { transform: rotate(360deg); }
+    }
+    .about-badge-inner { animation: rotateBadge 20s linear infinite reverse; }
+    .about-text h2 {
+      font-family: var(--font-display);
+      font-size: 42px; font-weight: 400;
+      line-height: 1.2; margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .about-text h2 em {
+      font-style: italic; color: var(--gold);
+    }
+    .about-name-script {
+      font-family: var(--font-script);
+      font-size: 28px;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 28px;
+    }
+    .about-text p {
+      font-size: 18px; color: var(--mid);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .about-features {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-top: 32px;
+    }
+    .about-feature {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .feature-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .about-feature span {
+      font-family: var(--font-sans);
+      font-size: 13px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--mid);
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--cream); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      height: 580px;
+      cursor: none;
+    }
+    .service-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .service-card:hover .service-bg { transform: scale(1.06); }
+    .service-nails .service-bg {
+      background: linear-gradient(160deg, #f0e6f6 0%, #e8d5cc 40%, #d4c4e0 100%);
+    }
+    .service-facials .service-bg {
+      background: linear-gradient(160deg, #c8dde4 0%, #a8c5ce 40%, #8faab3 100%);
+    }
+    .service-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(42,35,34,0.65) 0%, transparent 60%);
+      transition: opacity 0.4s;
+    }
+    .service-card:hover .service-overlay { opacity: 0.85; }
+    .service-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.4s, transform 0.4s;
+      text-align: center;
+    }
+    .service-card:hover .service-icon { opacity: 0; transform: translate(-50%, -60%); }
+    .service-icon svg { width: 80px; height: 80px; opacity: 0.5; }
+    .service-icon-label {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-top: 12px;
+      opacity: 0.7;
+    }
+    .service-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 48px 40px;
+      transform: translateY(60px);
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .service-card:hover .service-content { transform: translateY(0); }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 38px; font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .service-desc {
+      font-size: 16px; color: rgba(250,248,245,0.85);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .service-link {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .service-link::after {
+      content: '→';
+      transition: transform 0.3s;
+    }
+    .service-card:hover .service-link::after { transform: translateX(6px); }
+
+    /* ── FACIALS ── */
+    #facials {
+      background: linear-gradient(180deg, #f5ede4 0%, var(--warm-white) 100%);
+      position: relative;
+    }
+    #facials::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--blush), transparent);
+    }
+    .hydropeptide-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--dark);
+      color: var(--cream);
+      padding: 8px 20px;
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+    .hydropeptide-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--dusty-blue-light);
+    }
+    .facials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .facial-card {
+      background: white;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .facial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(42,35,34,0.12);
+    }
+    .facial-card-top {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .facial-card-top-1 { background: linear-gradient(135deg, #f0ebe6 0%, #e8ddd5 100%); }
+    .facial-card-top-2 { background: linear-gradient(135deg, #e4edf0 0%, #c8dde4 100%); }
+    .facial-card-top-3 { background: linear-gradient(135deg, #e8f0e8 0%, #c4d4c0 100%); }
+    .facial-icon-wrap {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(4px);
+      transition: transform 0.4s;
+    }
+    .facial-card:hover .facial-icon-wrap { transform: scale(1.1) rotate(5deg); }
+    .facial-icon-wrap svg { width: 44px; height: 44px; }
+    .facial-card-number {
+      position: absolute; top: 16px; right: 20px;
+      font-family: var(--font-display);
+      font-size: 64px; font-weight: 700;
+      color: rgba(42,35,34,0.06);
+      line-height: 1;
+    }
+    .facial-shimmer {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    .facial-card:hover .facial-shimmer { transform: translateX(100%); }
+    .facial-card-body { padding: 32px 28px; }
+    .facial-tag {
+      font-family: var(--font-sans);
+      font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .facial-name {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .facial-desc {
+      font-size: 15px; color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .facial-benefits {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .facial-benefit {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 11px; letter-spacing: 1px;
+      color: var(--light-mid);
+    }
+    .facial-benefit-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--dusty-blue);
+      flex-shrink: 0;
+    }
+    .facial-cta {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--blush);
+    }
+    .facial-book-btn {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: gap 0.3s;
+    }
+    .facial-book-btn:hover { gap: 14px; }
+    .facial-book-btn::after { content: '→'; }
+
+    /* ── STATS ── */
+    #stats {
+      background: var(--dark);
+      padding: 80px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+    .stat-item { position: relative; }
+    .stat-item::after {
+      content: '';
+      position: absolute; right: 0; top: 20%; bottom: 20%;
+      width: 1px; background: rgba(255,255,255,0.1);
+    }
+    .stat-item:last-child::after { display: none; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 64px; font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(250,248,245,0.5);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      background: var(--warm-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .exp-features {
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .exp-feature {
+      display: flex; gap: 24px;
+      opacity: 0; transform: translateX(-30px);
+    }
+    .exp-feature-icon {
+      width: 56px; height: 56px;
+      border: 1px solid var(--blush);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .exp-feature:hover .exp-feature-icon {
+      background: var(--dark); border-color: var(--dark);
+    }
+    .exp-feature:hover .exp-feature-icon svg path { stroke: var(--cream); }
+    .exp-feature-icon svg { width: 24px; height: 24px; }
+    .exp-feature-text h4 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .exp-feature-text p {
+      font-size: 16px; color: var(--mid); line-height: 1.7;
+    }
+    .exp-visual {
+      position: relative;
+    }
+    .exp-visual-main {
+      width: 100%; padding-bottom: 100%;
+      background: linear-gradient(135deg, var(--blush), var(--dusty-blue-light));
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-visual-main-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .exp-visual-main-inner svg { width: 160px; height: 160px; opacity: 0.2; }
+    .exp-visual-accent {
+      position: absolute;
+      bottom: -24px; left: -24px;
+      width: 160px; height: 160px;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .exp-visual-accent-text {
+      text-align: center; color: var(--cream);
+    }
+    .exp-visual-accent-text span:first-child {
+      font-family: var(--font-script);
+      font-size: 32px;
+      display: block;
+    }
+    .exp-visual-accent-text span:last-child {
+      font-family: var(--font-sans);
+      font-size: 9px; letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .gallery-strip {
+      display: flex;
+      gap: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .gallery-strip-inner {
+      display: flex; gap: 16px;
+      animation: galleryScroll 30s linear infinite;
+    }
+    .gallery-strip:nth-child(2) .gallery-strip-inner {
+      animation: galleryScrollReverse 25s linear infinite;
+    }
+    @keyframes galleryScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes galleryScrollReverse {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+    .gallery-item {
+      width: 260px; height: 320px;
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover .gallery-item-inner { transform: scale(1.04); }
+    .gallery-item svg { width: 60px; height: 60px; opacity: 0.2; }
+    .gallery-g1 { background: linear-gradient(135deg, #f0e6f6, #e8d5cc); }
+    .gallery-g2 { background: linear-gradient(135deg, #c8dde4, #8faab3); }
+    .gallery-g3 { background: linear-gradient(135deg, #f5ede4, #d4a99a); }
+    .gallery-g4 { background: linear-gradient(135deg, #e8f0e8, #a8b5a2); }
+    .gallery-g5 { background: linear-gradient(135deg, #f7f3ee, #e8d5b0); }
+    .gallery-g6 { background: linear-gradient(135deg, #ede4f0, #c4b0d0); }
+    .gallery-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(42,35,34,0.7) 0%, transparent 100%);
+      padding: 20px 16px 16px;
+      font-family: var(--font-sans);
+      font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-item-label { opacity: 1; }
+    .gallery-cta {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: linear-gradient(160deg, var(--dark) 0%, #3d3028 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #testimonials::before {
+      content: '"';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 600px; line-height: 0.8;
+      color: rgba(255,255,255,0.03);
+      top: 0; left: -20px;
+      pointer-events: none;
+    }
+    .testimonials-track {
+      overflow: hidden;
+      position: relative;
+    }
+    .testimonials-slider {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .testimonial {
+      min-width: 100%;
+      padding: 0 80px;
+      text-align: center;
+    }
+    .testimonial-quote {
+      font-family: var(--font-body);
+      font-size: clamp(20px, 3vw, 28px);
+      font-style: italic;
+      color: rgba(250,248,245,0.9);
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .testimonial-author {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 16px; letter-spacing: 4px;
+      margin-bottom: 24px;
+    }
+    .testimonials-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin-top: 56px;
+    }
+    .t-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .t-dot.active { background: var(--gold); transform: scale(1.5); }
+    .t-arrow {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: none;
+      color: var(--cream);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .t-arrow:hover { border-color: var(--gold); background: rgba(201,169,110,0.1); }
+
+    /* ── BOOKING ── */
+    #booking {
+      background: var(--warm-white);
+      position: relative;
+    }
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .booking-info h3 {
+      font-family: var(--font-script);
+      font-size: 48px;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .booking-info p {
+      font-size: 17px; color: var(--mid);
+      line-height: 1.8; margin-bottom: 32px;
+    }
+    .booking-details {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .booking-detail {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .booking-detail-icon {
+      width: 44px; height: 44px;
+      background: var(--blush);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+    }
+    .booking-detail-icon svg { width: 20px; height: 20px; }
+    .booking-detail-text span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--light-mid);
+      margin-bottom: 2px;
+    }
+    .booking-detail-text strong {
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 400;
+      color: var(--dark);
+    }
+    .booking-form {
+      background: white;
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(42,35,34,0.07);
+    }
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-sub {
+      font-family: var(--font-sans);
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--light-mid);
+      margin-bottom: 36px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--light-mid);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--blush);
+      padding: 14px 16px;
+      font-family: var(--font-body);
+      font-size: 16px; color: var(--dark);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.3s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%;
+      padding: 18px;
+      background: var(--dark);
+      color: var(--cream);
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 11px; letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: none;
+      position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .form-submit:hover { background: var(--gold); }
+    .form-submit .submit-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 32px;
+    }
+    .success-message.show { display: block; }
+    .success-message h4 {
+      font-family: var(--font-script);
+      font-size: 36px; color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .success-message p {
+      font-size: 16px; color: var(--mid);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 80px 0 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand-name {
+      font-family: var(--font-script);
+      font-size: 42px;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .footer-brand-sub {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(250,248,245,0.35);
+      margin-bottom: 24px;
+      display: block;
+    }
+    .footer-tagline {
+      font-size: 16px; font-style: italic;
+      color: rgba(250,248,245,0.5);
+      line-height: 1.7;
+    }
+    .footer-social {
+      display: flex; gap: 12px;
+      margin-top: 28px;
+    }
+    .social-link {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(250,248,245,0.15);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .social-link:hover { border-color: var(--gold); background: rgba(201,169,110,0.1); }
+    .social-link svg { width: 18px; height: 18px; }
+    .footer-col h5 {
+      font-family: var(--font-sans);
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-family: var(--font-body);
+      font-size: 16px; color: rgba(250,248,245,0.55);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 32px;
+      display: flex;
+      align-items: center; justify-content: space-between;
+    }
+    .footer-copy {
+      font-family: var(--font-sans);
+      font-size: 11px; color: rgba(250,248,245,0.3);
+      letter-spacing: 1px;
+    }
+    .footer-love {
+      font-family: var(--font-sans);
+      font-size: 11px; color: rgba(250,248,245,0.3);
+      letter-spacing: 1px;
+    }
+    .footer-love span { color: var(--rose); }
+
+    /* ── FLOATING SPARKLES ── */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      animation: sparklePop 0.6s forwards;
+    }
+    @keyframes sparklePop {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1) rotate(180deg); opacity: 1; }
+      100% { transform: scale(0) rotate(360deg) translateY(-30px); opacity: 0; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links, .nav-book { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .exp-grid, .booking-grid, .footer-grid { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { height: 480px; }
+      .service-content { transform: translateY(0); }
+      .service-icon { display: none; }
+      .facials-grid { grid-template-columns: 1fr; gap: 24px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-item::after { display: none; }
+      .testimonial { padding: 0 24px; }
+      .booking-form { padding: 32px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .about-badge { width: 90px; height: 90px; bottom: -12px; right: -12px; }
+      .about-badge-num { font-size: 24px; }
+      .exp-visual-accent { width: 120px; height: 120px; left: -12px; bottom: -12px; }
+      .container { padding: 0 20px; }
+      section { padding: 72px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">Essential Elegance</div>
+  <div class="loader-subtitle">Beauty · Nails · Facials</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#facials" onclick="closeMobile()">Facials</a>
+  <a href="#gallery" onclick="closeMobile()">Gallery</a>
+  <a href="#booking" onclick="closeMobile()">Book Now</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Essential Elegance</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#facials">Facials</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+  <a href="#booking" class="nav-book">Book Now</a>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="h-eyebrow">Welcome to</div>
+    <h1 class="hero-name" id="h-name">Essential Elegance</h1>
+    <div class="hero-tagline" id="h-tag">By Makayla · Beauty Sanctuary</div>
+    <p class="hero-desc" id="h-desc">Where luxury meets artistry. Experience the finest nails and skin treatments in an atmosphere of pure elegance.</p>
+    <div class="hero-btns" id="h-btns">
+      <a href="#booking" class="btn-primary"><span>Book Your Experience</span></a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Discover</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal-left">
+        <div class="about-image-frame">
+          <div class="about-image-placeholder">
+            <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="80" rx="45" ry="50" stroke="#2a2322" stroke-width="2"/>
+              <path d="M30 280 C30 180 170 180 170 280" stroke="#2a2322" stroke-width="2"/>
+              <path d="M55 130 C40 160 35 200 30 280" stroke="#2a2322" stroke-width="2"/>
+              <path d="M145 130 C160 160 165 200 170 280" stroke="#2a2322" stroke-width="2"/>
+              <circle cx="85" cy="65" r="4" fill="#2a2322" opacity="0.4"/>
+              <circle cx="115" cy="65" r="4" fill="#2a2322" opacity="0.4"/>
+              <path d="M90 90 Q100 98 110 90" stroke="#2a2322" stroke-width="1.5" fill="none" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-inner">
+            <span class="about-badge-num">5★</span>
+            <span class="about-badge-text">Rated</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal-right">
+        <span class="section-eyebrow">Meet Your Artist</span>
+        <h2>The art of <em>beautiful</em></h2>
+        <span class="about-name-script">Makayla</span>
+        <p>Hello, I'm Makayla — a licensed beauty professional passionate about helping every client feel their most radiant, confident self. With meticulous attention to detail and a love for the craft, I've created Essential Elegance as a space where beauty meets relaxation.</p>
+        <p>From precision nail artistry to professional-grade skin treatments using HydroPeptide's clinical skincare, every service is a personalized experience designed just for you.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="feature-dot"></div>
+            <span>Licensed & Certified Professional</span>
+          </div>
+          <div class="about-feature">
+            <div class="feature-dot"></div>
+            <span>HydroPeptide Certified Provider</span>
+          </div>
+          <div class="about-feature">
+            <div class="feature-dot"></div>
+            <span>Personalized Skin Consultations</span>
+          </div>
+          <div class="about-feature">
+            <div class="feature-dot"></div>
+            <span>Premium Nail Artistry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow reveal">Our Specialties</span>
+      <h2 class="section-title reveal delay-1">Crafted for You</h2>
+      <p class="section-sub reveal delay-2">Two pillars of luxury — nail artistry and transformative skin care</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card service-nails reveal delay-1">
+      <div class="service-bg"></div>
+      <div class="service-overlay"></div>
+      <div class="service-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 60 C25 60 20 40 22 25 C24 12 35 8 40 8 C45 8 56 12 58 25 C60 40 55 60 55 60 Z" stroke="#2a2322" stroke-width="2" fill="rgba(42,35,34,0.1)"/>
+          <path d="M30 55 C30 55 26 38 28 26 C30 16 37 12 40 12 C43 12 50 16 52 26 C54 38 50 55 50 55 Z" stroke="#2a2322" stroke-width="1.5" fill="rgba(42,35,34,0.05)"/>
+          <line x1="40" y1="60" x2="40" y2="72" stroke="#2a2322" stroke-width="2"/>
+          <ellipse cx="40" cy="74" rx="8" ry="4" stroke="#2a2322" stroke-width="1.5"/>
+        </svg>
+        <div class="service-icon-label">Nail Artistry</div>
+      </div>
+      <div class="service-content">
+        <h3 class="service-title">Nail Artistry</h3>
+        <p class="service-desc">From classic manicures to intricate nail art — every set is a masterpiece. Choose from gel, acrylic, dip powder, and more, all done with premium products and precision technique.</p>
+        <a href="#booking" class="service-link">Book a Nail Service</a>
+      </div>
+    </div>
+    <div class="service-card service-facials reveal delay-2">
+      <div class="service-bg"></div>
+      <div class="service-overlay"></div>
+      <div class="service-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="34" r="22" stroke="white" stroke-width="2" fill="rgba(255,255,255,0.1)"/>
+          <path d="M28 28 Q30 24 34 23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M52 28 Q50 24 46 23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="33" cy="32" r="3" fill="white" opacity="0.6"/>
+          <circle cx="47" cy="32" r="3" fill="white" opacity="0.6"/>
+          <path d="M34 42 Q40 47 46 42" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M40 56 L40 72 M36 66 L40 72 L44 66" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="service-icon-label" style="color:white;">Facial Treatments</div>
+      </div>
+      <div class="service-content">
+        <h3 class="service-title">Facial Treatments</h3>
+        <p class="service-desc">Three expert facial services using HydroPeptide's clinically-developed, geneticist-formulated skincare. Real, visible results delivered in a luxury experience tailored to your skin.</p>
+        <a href="#facials" class="service-link">Explore Facials</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACIALS -->
+<section id="facials">
+  <div class="container">
+    <div class="section-header">
+      <div class="reveal" style="text-align:center;margin-bottom:16px;">
+        <div class="hydropeptide-badge">
+          <div class="hydropeptide-dot"></div>
+          Featuring HydroPeptide
+          <div class="hydropeptide-dot"></div>
+        </div>
+      </div>
+      <span class="section-eyebrow reveal">Skin Treatments</span>
+      <h2 class="section-title reveal delay-1">Three Pathways to Glowing Skin</h2>
+      <p class="section-sub reveal delay-2">Clinical results. Luxury experiences. Geneticist developed.</p>
+    </div>
+    <div class="facials-grid">
+
+      <!-- FACIAL 1 -->
+      <div class="facial-card reveal delay-1">
+        <div class="facial-card-top facial-card-top-1">
+          <div class="facial-card-number">01</div>
+          <div class="facial-shimmer"></div>
+          <div class="facial-icon-wrap">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="22" cy="22" r="16" stroke="#c9a96e" stroke-width="1.5"/>
+              <path d="M15 20 Q18 14 22 14 Q26 14 29 20" stroke="#c9a96e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M14 26 Q18 30 22 30 Q26 30 30 26" stroke="#c9a96e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <circle cx="22" cy="22" r="3" fill="#c9a96e" opacity="0.4"/>
+              <path d="M22 6 L22 10 M22 34 L22 38 M6 22 L10 22 M34 22 L38 22" stroke="#c9a96e" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="facial-card-body">
+          <span class="facial-tag">Anti-Aging · Collagen Boost</span>
+          <h3 class="facial-name">HydroPeptide Anti-Aging Treatment</h3>
+          <p class="facial-desc">A professional-grade, peptide-packed treatment designed to stimulate collagen production, visibly improve skin elasticity, and soften fine lines and wrinkles for a smoother, more youthful complexion.</p>
+          <div class="facial-benefits">
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Stimulates collagen production</div>
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Improves skin elasticity</div>
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Softens fine lines & wrinkles</div>
+          </div>
+          <div class="facial-cta">
+            <a href="#booking" class="facial-book-btn">Book This Treatment</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FACIAL 2 -->
+      <div class="facial-card reveal delay-2">
+        <div class="facial-card-top facial-card-top-2">
+          <div class="facial-card-number">02</div>
+          <div class="facial-shimmer"></div>
+          <div class="facial-icon-wrap">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 8 Q28 14 28 22 Q28 32 22 36 Q16 32 16 22 Q16 14 22 8Z" stroke="#8faab3" stroke-width="1.5" fill="rgba(143,170,179,0.15)"/>
+              <path d="M22 4 L22 8" stroke="#8faab3" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="22" cy="3" r="2" fill="#8faab3"/>
+              <path d="M18 16 Q20 22 18 28" stroke="#8faab3" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+              <path d="M26 16 Q24 22 26 28" stroke="#8faab3" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+              <path d="M22 36 L18 42 M22 36 L26 42" stroke="#8faab3" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="facial-card-body">
+          <span class="facial-tag">Hydration · Moisture Infusion</span>
+          <h3 class="facial-name">HydroPeptide Moisture Infusion Facial</h3>
+          <p class="facial-desc">An ultra-hydrating treatment designed to quickly replenish dry, dull, or compromised skin. It plumps, strengthens the natural moisture barrier, and visibly softens fine lines using a blend of hyaluronic acid and peptides.</p>
+          <div class="facial-benefits">
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Deep hydration & plumping</div>
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Strengthens moisture barrier</div>
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Hyaluronic acid & peptide blend</div>
+          </div>
+          <div class="facial-cta">
+            <a href="#booking" class="facial-book-btn">Book This Treatment</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FACIAL 3 -->
+      <div class="facial-card reveal delay-3">
+        <div class="facial-card-top facial-card-top-3">
+          <div class="facial-card-number">03</div>
+          <div class="facial-shimmer"></div>
+          <div class="facial-icon-wrap">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 10 L28 20 L38 22 L30 30 L32 40 L22 35 L12 40 L14 30 L6 22 L16 20 Z" stroke="#a8b5a2" stroke-width="1.5" fill="rgba(168,181,162,0.15)"/>
+              <circle cx="22" cy="22" r="5" stroke="#a8b5a2" stroke-width="1.5" fill="rgba(168,181,162,0.2)"/>
+              <path d="M22 17 L22 14 M27 22 L30 22 M22 27 L22 30 M17 22 L14 22" stroke="#a8b5a2" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="facial-card-body">
+          <span class="facial-tag">Clarifying · Pore Refining</span>
+          <h3 class="facial-name">Spot Check Complexion Clarifying Facial</h3>
+          <p class="facial-desc">Designed to decongest pores, smooth skin texture and tone without stripping your natural moisture barrier. Reduces excess oil, minimizes blemishes. Ideal for oily, acne-prone skin dealing with active breakouts.</p>
+          <div class="facial-benefits">
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Decongests & refines pores</div>
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Controls excess oil</div>
+            <div class="facial-benefit"><div class="facial-benefit-dot"></div>Minimizes blemishes & breakouts</div>
+          </div>
+          <div class="facial-cta">
+            <a href="#booking" class="facial-book-btn">Book This Treatment</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal delay-1">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item reveal delay-2">
+        <div class="stat-num" data-target="3">0</div>
+        <div class="stat-label">Facial Services</div>
+      </div>
+      <div class="stat-item reveal delay-3">
+        <div class="stat-num" data-target="100">0</div>
+        <div class="stat-label">% Satisfaction</div>
+      </div>
+      <div class="stat-item reveal delay-4">
+        <div class="stat-num" data-target="5">0</div>
+        <div class="stat-label">Star Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="exp-grid">
+      <div class="exp-features">
+        <div class="section-header" style="text-align:left;margin-bottom:48px;">
+          <span class="section-eyebrow reveal">The Difference</span>
+          <h2 class="section-title reveal delay-1" style="text-align:left;">Why Essential<br><em style="font-style:italic;color:var(--gold);">Elegance?</em></h2>
+        </div>
+        <div class="exp-feature reveal delay-1">
+          <div class="exp-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+          </div>
+          <div class="exp-feature-text">
+            <h4>Premium Products Only</h4>
+            <p>We use only professional-grade, clinically tested products — including HydroPeptide's geneticist-developed skincare line — for real, visible results.</p>
+          </div>
+        </div>
+        <div class="exp-feature reveal delay-2">
+          <div class="exp-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <div class="exp-feature-text">
+            <h4>Personalized Every Visit</h4>
+            <p>No two clients are alike. Every appointment begins with a thorough consultation to customize your treatment to your unique skin type and goals.</p>
+          </div>
+        </div>
+        <div class="exp-feature reveal delay-3">
+          <div class="exp-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="exp-feature-text">
+            <h4>Sanctuary Atmosphere</h4>
+            <p>Step into a space designed to soothe the senses — soft lighting, luxurious textures, and a peaceful ambiance that makes every visit feel like a retreat.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exp-visual reveal-right">
+        <div class="exp-visual-main">
+          <div class="exp-visual-main-inner">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="80" r="50" stroke="#2a2322" stroke-width="2"/>
+              <path d="M60 80 Q65 60 80 55 Q100 50 120 55 Q135 60 140 80" stroke="#2a2322" stroke-width="1.5" fill="none"/>
+              <path d="M60 85 Q100 130 140 85" stroke="#2a2322" stroke-width="1.5" fill="none"/>
+              <path d="M80 100 Q100 170 120 100" stroke="#2a2322" stroke-width="1.5" fill="none"/>
+              <circle cx="85" cy="72" r="4" fill="#2a2322"/>
+              <circle cx="115" cy="72" r="4" fill="#2a2322"/>
+              <path d="M60 180 Q70 150 100 140 Q130 150 140 180" stroke="#2a2322" stroke-width="2" fill="none"/>
+              <path d="M40 150 Q50 130 60 140" stroke="#2a2322" stroke-width="1.5" fill="none"/>
+              <path d="M160 150 Q150 130 140 140" stroke="#2a2322" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="exp-visual-accent">
+          <div class="exp-visual-accent-text">
+            <span>Makayla</span>
+            <span>Your Beauty Expert</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:56px;">
+      <span class="section-eyebrow reveal">Portfolio</span>
+      <h2 class="section-title reveal delay-1">The Art of Beauty</h2>
+      <p class="section-sub reveal delay-2">Each creation is a canvas of personal expression</p>
+    </div>
+  </div>
+  <div class="gallery-strip">
+    <div class="gallery-strip-inner">
+      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 C30 10 20 20 20 32 C20 44 30 50 30 50 C30 50 40 44 40 32 C40 20 30 10 30 10Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Art</div></div>
+      <div class="gallery-item gallery-g2" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="28" r="16" stroke="white" stroke-width="1.5"/><path d="M20 48 Q30 54 40 48" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Facial Treatment</div></div>
+      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 L35 22 L48 22 L38 30 L42 43 L30 35 L18 43 L22 30 L12 22 L25 22 Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Premium Nails</div></div>
+      <div class="gallery-item gallery-g4" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 50 Q20 30 30 10 Q40 30 45 50" stroke="#2a2322" stroke-width="1.5" fill="none"/><path d="M20 35 Q30 40 40 35" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Skin Glow</div></div>
+      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><rect x="12" y="18" width="36" height="24" rx="3" stroke="#2a2322" stroke-width="1.5"/><path d="M22 18 L22 10 Q30 6 38 10 L38 18" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Luxury Products</div></div>
+      <div class="gallery-item gallery-g6" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/><path d="M22 30 Q30 22 38 30 Q30 38 22 30" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1"/></svg></div><div class="gallery-item-label">Anti-Aging</div></div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 C30 10 20 20 20 32 C20 44 30 50 30 50 C30 50 40 44 40 32 C40 20 30 10 30 10Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Art</div></div>
+      <div class="gallery-item gallery-g2" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="28" r="16" stroke="white" stroke-width="1.5"/><path d="M20 48 Q30 54 40 48" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Facial Treatment</div></div>
+      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 L35 22 L48 22 L38 30 L42 43 L30 35 L18 43 L22 30 L12 22 L25 22 Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Premium Nails</div></div>
+      <div class="gallery-item gallery-g4" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 50 Q20 30 30 10 Q40 30 45 50" stroke="#2a2322" stroke-width="1.5" fill="none"/><path d="M20 35 Q30 40 40 35" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Skin Glow</div></div>
+      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><rect x="12" y="18" width="36" height="24" rx="3" stroke="#2a2322" stroke-width="1.5"/><path d="M22 18 L22 10 Q30 6 38 10 L38 18" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Luxury Products</div></div>
+      <div class="gallery-item gallery-g6" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/><path d="M22 30 Q30 22 38 30 Q30 38 22 30" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1"/></svg></div><div class="gallery-item-label">Anti-Aging</div></div>
+    </div>
+  </div>
+  <div class="gallery-strip" style="margin-top:0;">
+    <div class="gallery-strip-inner">
+      <div class="gallery-item gallery-g6" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Clarifying</div></div>
+      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M20 50 L20 20 Q20 10 30 10 Q40 10 40 20 L40 50" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Design</div></div>
+      <div class="gallery-item gallery-g4" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M10 30 Q20 10 30 30 Q40 50 50 30" stroke="#2a2322" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">Skin Care</div></div>
+      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#2a2322" stroke-width="1.5"/><circle cx="30" cy="30" r="8" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Polish</div></div>
+      <div class="gallery-item gallery-g2" style="height:300px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 15 Q30 5 45 15 L50 45 Q30 55 10 45 Z" stroke="white" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">HydroPeptide</div></div>
+      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 8 C20 8 10 18 10 30 C10 42 20 52 30 52 C40 52 50 42 50 30 C50 18 40 8 30 8Z" stroke="#2a2322" stroke-width="1.5"/><path d="M22 30 Q26 24 30 24 Q34 24 38 30" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Glow Up</div></div>
+      <!-- Duplicate -->
+      <div class="gallery-item gallery-g6" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Clarifying</div></div>
+      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M20 50 L20 20 Q20 10 30 10 Q40 10 40 20 L40 50" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Design</div></div>
+      <div class="gallery-item gallery-g4" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M10 30 Q20 10 30 30 Q40 50 50 30" stroke="#2a2322" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">Skin Care</div></div>
+      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#2a2322" stroke-width="1.5"/><circle cx="30" cy="30" r="8" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Polish</div></div>
+      <div class="gallery-item gallery-g2" style="height:300px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 15 Q30 5 45 15 L50 45 Q30 55 10 45 Z" stroke="white" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">HydroPeptide</div></div>
+      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 8 C20 8 10 18 10 30 C10 42 20 52 30 52 C40 52 50 42 50 30 C50 18 40 8 30 8Z" stroke="#2a2322" stroke-width="1.5"/><path d="M22 30 Q26 24 30 24 Q34 24 38 30" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Glow Up</div></div>
+    </div>
+  </div>
+  <div class="gallery-cta">
+    <a href="#booking" class="btn-primary reveal"><span>Book Your Transformation</span></a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:64px;">
+      <span class="section-eyebrow reveal" style="color:var(--gold);">Client Love</span>
+      <h2 class="section-title reveal delay-1" style="color:var(--cream);">What Our Clients Say</h2>
+    </div>
+    <div class="testimonials-track">
+      <div class="testimonials-slider" id="slider">
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"Makayla is absolutely incredible. My nails have never looked better — she takes such care with every detail and the result was beyond my expectations. I won't go anywhere else!"</p>
+          <div class="testimonial-author">— Sarah M.</div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"The HydroPeptide Moisture Infusion Facial completely transformed my skin. After just one treatment, I noticed my skin was plumper, more hydrated, and practically glowing. Makayla is a true skin expert."</p>
+          <div class="testimonial-author">— Jessica L.</div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"I came in with acne-prone skin feeling self-conscious. The Spot Check Clarifying Facial was a game changer. Makayla was so knowledgeable and made me feel completely at ease. My skin is clearer than it's been in years."</p>
+          <div class="testimonial-author">— Alyssa R.</div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"Essential Elegance is more than a salon — it's a full experience. The atmosphere is so peaceful and luxurious, and Makayla's attention to detail is unmatched. My nails always look magazine-worthy."</p>
+          <div class="testimonial-author">— Taylor K.</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonials-nav">
+      <button class="t-arrow" onclick="prevSlide()">←</button>
+      <div class="t-dot active" onclick="goSlide(0)"></div>
+      <div class="t-dot" onclick="goSlide(1)"></div>
+      <div class="t-dot" onclick="goSlide(2)"></div>
+      <div class="t-dot" onclick="goSlide(3)"></div>
+      <button class="t-arrow" onclick="nextSlide()">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:72px;">
+      <span class="section-eyebrow reveal">Reserve Your Spot</span>
+      <h2 class="section-title reveal delay-1">Book an Appointment</h2>
+      <p class="section-sub reveal delay-2">Your journey to radiance begins with a single step</p>
+    </div>
+    <div class="booking-grid">
+      <div class="booking-info reveal-left">
+        <h3>Let's Create Something Beautiful</h3>
+        <p>Whether you're coming in for a stunning set of nails or a transformative facial treatment, Makayla is ready to give you the personalized luxury experience you deserve.</p>
+        <div class="booking-details">
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round">
+                <circle cx="10" cy="10" r="8"/><polyline points="10 6 10 10 13 13"/>
+              </svg>
+            </div>
+            <div class="booking-detail-text">
+              <span>Hours</span>
+              <strong>Tue–Sat: 9am – 7pm · Sun: 10am – 5pm</strong>
+            </div>
+          </div>
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round">
+                <path d="M17 12a1 1 0 0 1-1 1h-1l-3 3-3-3H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v7z"/>
+              </svg>
+            </div>
+            <div class="booking-detail-text">
+              <span>Social</span>
+              <strong>@EssentialEleganceByMakayla</strong>
+            </div>
+          </div>
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round">
+                <path d="M4 4h12c1 0 2 .9 2 2v8c0 1.1-1 2-2 2H4c-1 0-2-.9-2-2V6c0-1.1 1-2 2-2z"/><polyline points="22 6 12 13 2 6"/>
+              </svg>
+            </div>
+            <div class="booking-detail-text">
+              <span>Response Time</span>
+              <strong>Within 24 hours</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="booking-form reveal-right" id="bookingFormWrap">
+        <h3 class="form-title">Request an Appointment</h3>
+        <p class="form-sub">We'll confirm your booking within 24 hours</p>
+        <form id="bookingForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Last name" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label>Service</label>
+            <select required>
+              <option value="" disabled selected>Select a service...</option>
+              <optgroup label="Nail Services">
+                <option>Classic Manicure</option>
+                <option>Gel Manicure</option>
+                <option>Acrylic Full Set</option>
+                <option>Nail Art</option>
+                <option>Dip Powder</option>
+              </optgroup>
+              <optgroup label="Facial Treatments">
+                <option>HydroPeptide Anti-Aging Treatment</option>
+                <option>HydroPeptide Moisture Infusion Facial</option>
+                <option>Spot Check Complexion Clarifying Facial</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred Date & Time</label>
+            <input type="datetime-local" />
+          </div>
+          <div class="form-group">
+            <label>Notes (optional)</label>
+            <textarea placeholder="Tell Makayla about your skin type, nail preferences, or any special requests..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Request Appointment</button>
+        </form>
+        <div class="success-message" id="successMsg">
+          <h4>Thank you!</h4>
+          <p>Your request has been received. Makayla will be in touch within 24 hours to confirm your appointment.</p>
+          <br/>
+          <a href="#" class="btn-outline" onclick="document.getElementById('successMsg').classList.remove('show');document.getElementById('bookingForm').style.display='block';return false;">Book Another</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand-name">Essential Elegance</span>
+        <span class="footer-brand-sub">Beauty · Nails · Facials · By Makayla</span>
+        <p class="footer-tagline">Where every visit is a luxury experience crafted just for you. Beauty is not a look — it's a feeling.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,245,0.6)" stroke-width="1.5" stroke-linecap="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(250,248,245,0.6)" stroke-width="1.5" stroke-linecap="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="rgba(250,248,245,0.6)">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1.01-.04z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul class="footer-links">
+          <li><a href="#services">Nail Artistry</a></li>
+          <li><a href="#facials">Anti-Aging Facial</a></li>
+          <li><a href="#facials">Moisture Infusion Facial</a></li>
+          <li><a href="#facials">Clarifying Facial</a></li>
+          <li><a href="#booking">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="#about">About Makayla</a></li>
+          <li><a href="#gallery">Portfolio</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#booking">Book Now</a></li>
+          <li><a href="#">Policies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Essential Elegance by Makayla. All rights reserved.</span>
+      <span class="footer-love">Made with <span>♥</span> for beauty</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── LOADER ──
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      loader.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      loader.style.opacity = '0';
+      loader.style.transform = 'translateY(-20px)';
+      setTimeout(() => { loader.style.display = 'none'; animateHero(); }, 800);
+    }, 2400);
+  });
+
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .service-card, .facial-card, input, select, textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+
+  // ── SPARKLE ON CLICK ──
+  document.addEventListener('click', e => {
+    for (let i = 0; i < 6; i++) {
+      const sp = document.createElement('div');
+      sp.className = 'sparkle';
+      sp.style.left = e.clientX + 'px';
+      sp.style.top = e.clientY + 'px';
+      const size = 6 + Math.random() * 10;
+      sp.style.width = size + 'px';
+      sp.style.height = size + 'px';
+      sp.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      const colors = ['#c9a96e','#e8d5cc','#8faab3','#d4a99a','#a8b5a2'];
+      sp.style.background = colors[Math.floor(Math.random()*colors.length)];
+      const angle = (Math.PI * 2 / 6) * i;
+      const dist = 20 + Math.random() * 30;
+      sp.style.transform = `translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`;
+      sp.style.animationDelay = Math.random() * 0.1 + 's';
+      document.body.appendChild(sp);
+      setTimeout(() => sp.remove(), 700);
+    }
+  });
+
+  // ── HERO CANVAS PARTICLES ──
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = 1 + Math.random() * 3;
+      this.speedX = (Math.random() - 0.5) * 0.4;
+      this.speedY = -0.3 - Math.random() * 0.5;
+      this.opacity = 0;
+      this.maxOp = 0.15 + Math.random() * 0.25;
+      this.life = 0;
+      this.maxLife = 200 + Math.random() * 300;
+      const palettes = ['#c9a96e','#e8d5cc','#8faab3','#d4a99a'];
+      this.color = palettes[Math.floor(Math.random()*palettes.length)];
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.life++;
+      if (this.life < 40) this.opacity = (this.life/40) * this.maxOp;
+      else if (this.life > this.maxLife - 40) this.opacity = ((this.maxLife - this.life)/40) * this.maxOp;
+      else this.opacity = this.maxOp;
+      if (this.life >= this.maxLife) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) {
+    const p = new Particle();
+    p.life = Math.random() * p.maxLife;
+    particles.push(p);
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // ── HERO ENTRANCE ──
+  function animateHero() {
+    const els = [
+      { el: document.getElementById('h-eyebrow'), delay: 0 },
+      { el: document.getElementById('h-name'), delay: 0.15 },
+      { el: document.getElementById('h-tag'), delay: 0.3 },
+      { el: document.getElementById('h-desc'), delay: 0.45 },
+      { el: document.getElementById('h-btns'), delay: 0.6 },
+    ];
+    els.forEach(({ el, delay }) => {
+      if (!el) return;
+      el.style.transition = `opacity 0.9s ${delay}s ease, transform 0.9s ${delay}s ease`;
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  }
+
+  // ── NAV SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── HAMBURGER ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('mobileClose').addEventListener('click', closeMobile);
+  function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // ── SCROLL REVEAL ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // animate exp-features on reveal
+        if (entry.target.classList.contains('exp-feature')) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
+          entry.target.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        }
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('.exp-feature').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.15}s`;
+    revealObserver.observe(el);
+  });
+
+  // ── COUNTER ANIMATION ──
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = target === 100 ? '%' : target === 5 ? '★' : '+';
+        let current = 0;
+        const increment = target / 60;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          el.textContent = Math.floor(current) + suffix;
+        }, 25);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObserver.observe(el));
+
+  // ── TESTIMONIAL SLIDER ──
+  let currentSlide = 0;
+  const totalSlides = 4;
+  let autoSlide = setInterval(nextSlide, 5000);
+
+  function goSlide(n) {
+    currentSlide = n;
+    document.getElementById('slider').style.transform = `translateX(-${n * 100}%)`;
+    document.querySelectorAll('.t-dot').forEach((d, i) => d.classList.toggle('active', i === n));
+    clearInterval(autoSlide);
+    autoSlide = setInterval(nextSlide, 5000);
+  }
+  function nextSlide() { goSlide((currentSlide + 1) % totalSlides); }
+  function prevSlide() { goSlide((currentSlide - 1 + totalSlides) % totalSlides); }
+
+  // ── FORM SUBMIT ──
+  function submitForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('bookingForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    }, 1200);
+  }
+
+  // ── BUTTON RIPPLE ──
+  document.querySelector('.form-submit').addEventListener('click', function(e) {
+    const r = document.createElement('span');
+    r.className = 'submit-ripple';
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    r.style.width = r.style.height = size + 'px';
+    r.style.left = e.clientX - rect.left - size/2 + 'px';
+    r.style.top = e.clientY - rect.top - size/2 + 'px';
+    this.appendChild(r);
+    setTimeout(() => r.remove(), 600);
+  });
+
+  // ── PARALLAX HERO ──
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent && sy < window.innerHeight) {
+      heroContent.style.transform = `translateY(${sy * 0.25}px)`;
+      heroContent.style.opacity = 1 - (sy / (window.innerHeight * 0.7));
+    }
+  });
+
+  // ── SMOOTH SECTION TRANSITIONS ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ── SERVICE CARD TILT ──
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+      card.style.transition = 'transform 0.5s ease';
+    });
+  });
+
+  // ── FACIAL CARD TILT ──
+  document.querySelectorAll('.facial-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.querySelector('.facial-card-top').style.transform = `perspective(600px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.querySelector('.facial-card-top').style.transform = '';
+      card.querySelector('.facial-card-top').style.transition = 'transform 0.5s ease';
+    });
+  });
+
+  // ── MAGNETIC BUTTONS ──
+  document.querySelectorAll('.btn-primary, .btn-outline, .nav-book').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width/2) * 0.2;
+      const y = (e.clientY - rect.top - rect.height/2) * 0.2;
+      btn.style.transform = `translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+      btn.style.transition = 'transform 0.4s ease';
+    });
+  });
+</script>
+</body>
+</html>
