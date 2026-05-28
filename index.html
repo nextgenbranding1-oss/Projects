@@ -436,12 +436,13 @@
     }
     .about-image-placeholder {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--blush), var(--dusty-blue-light));
-      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
-    .about-image-placeholder svg {
-      width: 120px; height: 120px;
-      opacity: 0.3;
+    .about-image-placeholder img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
     .about-image-frame::after {
       content: '';
@@ -548,6 +549,12 @@
     .service-facials .service-bg {
       background: linear-gradient(160deg, #c8dde4 0%, #a8c5ce 40%, #8faab3 100%);
     }
+    .service-bg img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
     .service-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(42,35,34,0.65) 0%, transparent 60%);
@@ -653,6 +660,14 @@
     .facial-card-top-1 { background: linear-gradient(135deg, #f0ebe6 0%, #e8ddd5 100%); }
     .facial-card-top-2 { background: linear-gradient(135deg, #e4edf0 0%, #c8dde4 100%); }
     .facial-card-top-3 { background: linear-gradient(135deg, #e8f0e8 0%, #c4d4c0 100%); }
+    .facial-card-top img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.55;
+      transition: opacity 0.4s, transform 0.5s;
+    }
+    .facial-card:hover .facial-card-top img { opacity: 0.7; transform: scale(1.04); }
     .facial-icon-wrap {
       width: 90px; height: 90px;
       border-radius: 50%;
@@ -811,11 +826,12 @@
       position: relative;
       overflow: hidden;
     }
-    .exp-visual-main-inner {
+    .exp-visual-main img {
       position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    .exp-visual-main-inner svg { width: 160px; height: 160px; opacity: 0.2; }
     .exp-visual-accent {
       position: absolute;
       bottom: -24px; left: -24px;
@@ -870,13 +886,14 @@
       overflow: hidden;
       position: relative;
     }
-    .gallery-item-inner {
+    .gallery-item img {
+      position: absolute; inset: 0;
       width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.5s;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
     }
-    .gallery-item:hover .gallery-item-inner { transform: scale(1.04); }
-    .gallery-item svg { width: 60px; height: 60px; opacity: 0.2; }
+    .gallery-item:hover img { transform: scale(1.04); }
     .gallery-g1 { background: linear-gradient(135deg, #f0e6f6, #e8d5cc); }
     .gallery-g2 { background: linear-gradient(135deg, #c8dde4, #8faab3); }
     .gallery-g3 { background: linear-gradient(135deg, #f5ede4, #d4a99a); }
@@ -1318,15 +1335,11 @@
       <div class="about-image-wrap reveal-left">
         <div class="about-image-frame">
           <div class="about-image-placeholder">
-            <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="100" cy="80" rx="45" ry="50" stroke="#2a2322" stroke-width="2"/>
-              <path d="M30 280 C30 180 170 180 170 280" stroke="#2a2322" stroke-width="2"/>
-              <path d="M55 130 C40 160 35 200 30 280" stroke="#2a2322" stroke-width="2"/>
-              <path d="M145 130 C160 160 165 200 170 280" stroke="#2a2322" stroke-width="2"/>
-              <circle cx="85" cy="65" r="4" fill="#2a2322" opacity="0.4"/>
-              <circle cx="115" cy="65" r="4" fill="#2a2322" opacity="0.4"/>
-              <path d="M90 90 Q100 98 110 90" stroke="#2a2322" stroke-width="1.5" fill="none" opacity="0.4"/>
-            </svg>
+            <img
+              src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=800&fit=crop&auto=format&q=80"
+              alt="Makayla – Beauty Professional"
+              loading="eager"
+            />
           </div>
         </div>
         <div class="about-badge">
@@ -1376,7 +1389,9 @@
   </div>
   <div class="services-grid">
     <div class="service-card service-nails reveal delay-1">
-      <div class="service-bg"></div>
+      <div class="service-bg">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&h=600&fit=crop&auto=format&q=80" alt="Nail Artistry" loading="lazy" />
+      </div>
       <div class="service-overlay"></div>
       <div class="service-icon">
         <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1394,7 +1409,9 @@
       </div>
     </div>
     <div class="service-card service-facials reveal delay-2">
-      <div class="service-bg"></div>
+      <div class="service-bg">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&auto=format&q=80" alt="Facial Treatments" loading="lazy" />
+      </div>
       <div class="service-overlay"></div>
       <div class="service-icon">
         <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1437,6 +1454,7 @@
       <!-- FACIAL 1 -->
       <div class="facial-card reveal delay-1">
         <div class="facial-card-top facial-card-top-1">
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&h=280&fit=crop&auto=format&q=80" alt="Anti-Aging Skincare Products" loading="lazy" />
           <div class="facial-card-number">01</div>
           <div class="facial-shimmer"></div>
           <div class="facial-icon-wrap">
@@ -1467,6 +1485,7 @@
       <!-- FACIAL 2 -->
       <div class="facial-card reveal delay-2">
         <div class="facial-card-top facial-card-top-2">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&h=280&fit=crop&auto=format&q=80" alt="Moisture Infusion Skincare" loading="lazy" />
           <div class="facial-card-number">02</div>
           <div class="facial-shimmer"></div>
           <div class="facial-icon-wrap">
@@ -1498,6 +1517,7 @@
       <!-- FACIAL 3 -->
       <div class="facial-card reveal delay-3">
         <div class="facial-card-top facial-card-top-3">
+          <img src="https://images.unsplash.com/photo-1559181567-c3190e02a6a8?w=500&h=280&fit=crop&auto=format&q=80" alt="Clarifying Facial Treatment" loading="lazy" />
           <div class="facial-card-number">03</div>
           <div class="facial-shimmer"></div>
           <div class="facial-icon-wrap">
@@ -1596,19 +1616,7 @@
       </div>
       <div class="exp-visual reveal-right">
         <div class="exp-visual-main">
-          <div class="exp-visual-main-inner">
-            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="100" cy="80" r="50" stroke="#2a2322" stroke-width="2"/>
-              <path d="M60 80 Q65 60 80 55 Q100 50 120 55 Q135 60 140 80" stroke="#2a2322" stroke-width="1.5" fill="none"/>
-              <path d="M60 85 Q100 130 140 85" stroke="#2a2322" stroke-width="1.5" fill="none"/>
-              <path d="M80 100 Q100 170 120 100" stroke="#2a2322" stroke-width="1.5" fill="none"/>
-              <circle cx="85" cy="72" r="4" fill="#2a2322"/>
-              <circle cx="115" cy="72" r="4" fill="#2a2322"/>
-              <path d="M60 180 Q70 150 100 140 Q130 150 140 180" stroke="#2a2322" stroke-width="2" fill="none"/>
-              <path d="M40 150 Q50 130 60 140" stroke="#2a2322" stroke-width="1.5" fill="none"/>
-              <path d="M160 150 Q150 130 140 140" stroke="#2a2322" stroke-width="1.5" fill="none"/>
-            </svg>
-          </div>
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=600&fit=crop&auto=format&q=80" alt="Beauty Salon Interior" loading="lazy" />
         </div>
         <div class="exp-visual-accent">
           <div class="exp-visual-accent-text">
@@ -1632,36 +1640,36 @@
   </div>
   <div class="gallery-strip">
     <div class="gallery-strip-inner">
-      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 C30 10 20 20 20 32 C20 44 30 50 30 50 C30 50 40 44 40 32 C40 20 30 10 30 10Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Art</div></div>
-      <div class="gallery-item gallery-g2" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="28" r="16" stroke="white" stroke-width="1.5"/><path d="M20 48 Q30 54 40 48" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Facial Treatment</div></div>
-      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 L35 22 L48 22 L38 30 L42 43 L30 35 L18 43 L22 30 L12 22 L25 22 Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Premium Nails</div></div>
-      <div class="gallery-item gallery-g4" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 50 Q20 30 30 10 Q40 30 45 50" stroke="#2a2322" stroke-width="1.5" fill="none"/><path d="M20 35 Q30 40 40 35" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Skin Glow</div></div>
-      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><rect x="12" y="18" width="36" height="24" rx="3" stroke="#2a2322" stroke-width="1.5"/><path d="M22 18 L22 10 Q30 6 38 10 L38 18" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Luxury Products</div></div>
-      <div class="gallery-item gallery-g6" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/><path d="M22 30 Q30 22 38 30 Q30 38 22 30" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1"/></svg></div><div class="gallery-item-label">Anti-Aging</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=520&h=640&fit=crop&auto=format&q=75" alt="Nail Art" loading="lazy"/><div class="gallery-item-label">Nail Art</div></div>
+      <div class="gallery-item" style="height:260px;"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=520&h=520&fit=crop&auto=format&q=75" alt="Facial Treatment" loading="lazy"/><div class="gallery-item-label">Facial Treatment</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1613759612065-d5ef5f916e61?w=520&h=640&fit=crop&auto=format&q=75" alt="Premium Nails" loading="lazy"/><div class="gallery-item-label">Premium Nails</div></div>
+      <div class="gallery-item" style="height:280px;"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=520&h=560&fit=crop&auto=format&q=75" alt="Skin Glow" loading="lazy"/><div class="gallery-item-label">Skin Glow</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=520&h=640&fit=crop&auto=format&q=75" alt="Luxury Products" loading="lazy"/><div class="gallery-item-label">Luxury Products</div></div>
+      <div class="gallery-item" style="height:260px;"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=520&h=520&fit=crop&auto=format&q=75" alt="Anti-Aging" loading="lazy"/><div class="gallery-item-label">Anti-Aging</div></div>
       <!-- Duplicate for infinite scroll -->
-      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 C30 10 20 20 20 32 C20 44 30 50 30 50 C30 50 40 44 40 32 C40 20 30 10 30 10Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Art</div></div>
-      <div class="gallery-item gallery-g2" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="28" r="16" stroke="white" stroke-width="1.5"/><path d="M20 48 Q30 54 40 48" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Facial Treatment</div></div>
-      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 10 L35 22 L48 22 L38 30 L42 43 L30 35 L18 43 L22 30 L12 22 L25 22 Z" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Premium Nails</div></div>
-      <div class="gallery-item gallery-g4" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 50 Q20 30 30 10 Q40 30 45 50" stroke="#2a2322" stroke-width="1.5" fill="none"/><path d="M20 35 Q30 40 40 35" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Skin Glow</div></div>
-      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><rect x="12" y="18" width="36" height="24" rx="3" stroke="#2a2322" stroke-width="1.5"/><path d="M22 18 L22 10 Q30 6 38 10 L38 18" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Luxury Products</div></div>
-      <div class="gallery-item gallery-g6" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/><path d="M22 30 Q30 22 38 30 Q30 38 22 30" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1"/></svg></div><div class="gallery-item-label">Anti-Aging</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=520&h=640&fit=crop&auto=format&q=75" alt="Nail Art" loading="lazy"/><div class="gallery-item-label">Nail Art</div></div>
+      <div class="gallery-item" style="height:260px;"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=520&h=520&fit=crop&auto=format&q=75" alt="Facial Treatment" loading="lazy"/><div class="gallery-item-label">Facial Treatment</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1613759612065-d5ef5f916e61?w=520&h=640&fit=crop&auto=format&q=75" alt="Premium Nails" loading="lazy"/><div class="gallery-item-label">Premium Nails</div></div>
+      <div class="gallery-item" style="height:280px;"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=520&h=560&fit=crop&auto=format&q=75" alt="Skin Glow" loading="lazy"/><div class="gallery-item-label">Skin Glow</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=520&h=640&fit=crop&auto=format&q=75" alt="Luxury Products" loading="lazy"/><div class="gallery-item-label">Luxury Products</div></div>
+      <div class="gallery-item" style="height:260px;"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=520&h=520&fit=crop&auto=format&q=75" alt="Anti-Aging" loading="lazy"/><div class="gallery-item-label">Anti-Aging</div></div>
     </div>
   </div>
   <div class="gallery-strip" style="margin-top:0;">
     <div class="gallery-strip-inner">
-      <div class="gallery-item gallery-g6" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Clarifying</div></div>
-      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M20 50 L20 20 Q20 10 30 10 Q40 10 40 20 L40 50" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Design</div></div>
-      <div class="gallery-item gallery-g4" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M10 30 Q20 10 30 30 Q40 50 50 30" stroke="#2a2322" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">Skin Care</div></div>
-      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#2a2322" stroke-width="1.5"/><circle cx="30" cy="30" r="8" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Polish</div></div>
-      <div class="gallery-item gallery-g2" style="height:300px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 15 Q30 5 45 15 L50 45 Q30 55 10 45 Z" stroke="white" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">HydroPeptide</div></div>
-      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 8 C20 8 10 18 10 30 C10 42 20 52 30 52 C40 52 50 42 50 30 C50 18 40 8 30 8Z" stroke="#2a2322" stroke-width="1.5"/><path d="M22 30 Q26 24 30 24 Q34 24 38 30" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Glow Up</div></div>
+      <div class="gallery-item" style="height:280px;"><img src="https://images.unsplash.com/photo-1559181567-c3190e02a6a8?w=520&h=560&fit=crop&auto=format&q=75" alt="Clarifying" loading="lazy"/><div class="gallery-item-label">Clarifying</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1573461160327-13c1ab33ece4?w=520&h=640&fit=crop&auto=format&q=75" alt="Nail Design" loading="lazy"/><div class="gallery-item-label">Nail Design</div></div>
+      <div class="gallery-item" style="height:260px;"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=520&h=520&fit=crop&auto=format&q=75" alt="Skin Care" loading="lazy"/><div class="gallery-item-label">Skin Care</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=520&h=640&fit=crop&auto=format&q=75" alt="Beauty" loading="lazy"/><div class="gallery-item-label">Beauty</div></div>
+      <div class="gallery-item" style="height:300px;"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=520&h=600&fit=crop&auto=format&q=75" alt="HydroPeptide" loading="lazy"/><div class="gallery-item-label">HydroPeptide</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=520&h=640&fit=crop&auto=format&q=75" alt="Glow Up" loading="lazy"/><div class="gallery-item-label">Glow Up</div></div>
       <!-- Duplicate -->
-      <div class="gallery-item gallery-g6" style="height:280px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="18" stroke="white" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Clarifying</div></div>
-      <div class="gallery-item gallery-g5"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M20 50 L20 20 Q20 10 30 10 Q40 10 40 20 L40 50" stroke="#2a2322" stroke-width="1.5"/></svg></div><div class="gallery-item-label">Nail Design</div></div>
-      <div class="gallery-item gallery-g4" style="height:260px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M10 30 Q20 10 30 30 Q40 50 50 30" stroke="#2a2322" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">Skin Care</div></div>
-      <div class="gallery-item gallery-g3"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#2a2322" stroke-width="1.5"/><circle cx="30" cy="30" r="8" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Polish</div></div>
-      <div class="gallery-item gallery-g2" style="height:300px;"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M15 15 Q30 5 45 15 L50 45 Q30 55 10 45 Z" stroke="white" stroke-width="1.5" fill="none"/></svg></div><div class="gallery-item-label">HydroPeptide</div></div>
-      <div class="gallery-item gallery-g1"><div class="gallery-item-inner"><svg viewBox="0 0 60 60" fill="none"><path d="M30 8 C20 8 10 18 10 30 C10 42 20 52 30 52 C40 52 50 42 50 30 C50 18 40 8 30 8Z" stroke="#2a2322" stroke-width="1.5"/><path d="M22 30 Q26 24 30 24 Q34 24 38 30" stroke="#2a2322" stroke-width="1"/></svg></div><div class="gallery-item-label">Glow Up</div></div>
+      <div class="gallery-item" style="height:280px;"><img src="https://images.unsplash.com/photo-1559181567-c3190e02a6a8?w=520&h=560&fit=crop&auto=format&q=75" alt="Clarifying" loading="lazy"/><div class="gallery-item-label">Clarifying</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1573461160327-13c1ab33ece4?w=520&h=640&fit=crop&auto=format&q=75" alt="Nail Design" loading="lazy"/><div class="gallery-item-label">Nail Design</div></div>
+      <div class="gallery-item" style="height:260px;"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=520&h=520&fit=crop&auto=format&q=75" alt="Skin Care" loading="lazy"/><div class="gallery-item-label">Skin Care</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=520&h=640&fit=crop&auto=format&q=75" alt="Beauty" loading="lazy"/><div class="gallery-item-label">Beauty</div></div>
+      <div class="gallery-item" style="height:300px;"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=520&h=600&fit=crop&auto=format&q=75" alt="HydroPeptide" loading="lazy"/><div class="gallery-item-label">HydroPeptide</div></div>
+      <div class="gallery-item" style="height:320px;"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=520&h=640&fit=crop&auto=format&q=75" alt="Glow Up" loading="lazy"/><div class="gallery-item-label">Glow Up</div></div>
     </div>
   </div>
   <div class="gallery-cta">
